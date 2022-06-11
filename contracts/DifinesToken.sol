@@ -1,16 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
+
 import "./interface/IBEP20.sol";
 import "./libs/SafeMath.sol";
 
 contract DifinesToken is IBEP20 {
     using SafeMath for uint256;
-    string private _name = "DIFINES";
-    string private _symbol = "DFS";
-    uint8 private _decimals = 18;
-    uint256 private _totalSupply = 10000000000 * 1e18;
+    string _name = "DIFINES";
+    string _symbol = "DFS";
+    uint8 _decimals = 18;
+    uint256 _totalSupply = 10000000000 * 1e18;
 
-    address private _operator;
+    address _operator;
     address public constant BURN_ADDRESS =
         0x000000000000000000000000000000000000dEaD;
 
@@ -21,11 +22,11 @@ contract DifinesToken is IBEP20 {
 
     event Burn(address indexed from, uint256 value);
 
-    mapping(address => uint256) private _balances;
-    mapping(address => mapping(address => uint256)) private _allowances;
+    mapping(address => uint256) balances;
+    mapping(address => mapping(address => uint256)) allowed;
 
     constructor() {
-        _balances[msg.sender] = _totalSupply;
+        balances[msg.sender] = _totalSupply;
         _operator = msg.sender;
         emit OwnershipTransferred(address(0), _operator);
     }
@@ -35,42 +36,40 @@ contract DifinesToken is IBEP20 {
         override
         returns (bool success)
     {
-        require(_balances[msg.sender] >= _value, "Not enough tokens");
+        require(balances[msg.sender] >= _value, "Not enough tokens");
 
-        _balances[msg.sender] = _balances[msg.sender].sub(_value);
-        _balances[_to] = _balances[_to].add(_value);
+        balances[msg.sender] = balances[msg.sender].sub(_value);
+        balances[_to] = balances[_to].add(_value);
 
         emit Transfer(msg.sender, _to, _value);
         return true;
     }
 
-    function approve(address _to, uint256 _value)
+    function approve(address delegate, uint256 _value)
         public
         override
         returns (bool success)
     {
-        _allowances[msg.sender][_to] = _value;
+        allowed[msg.sender][delegate] = _value;
 
-        emit Approval(msg.sender, _to, _value);
+        emit Approval(msg.sender, delegate, _value);
         return true;
     }
 
     function transferFrom(
-        address _from,
-        address _to,
+        address owner,
+        address buyer,
         uint256 _value
     ) public override returns (bool success) {
-        require(_value <= _balances[_from]);
-        require(_value <= _allowances[_from][msg.sender]);
+        require(_value <= balances[owner]);
+        require(_value <= allowed[owner][msg.sender]);
 
-        _balances[_from] = _balances[_from].sub(_value);
-        _balances[_to] = _balances[_to].add(_value);
+        balances[owner] = balances[owner].sub(_value);
+        balances[buyer] = balances[buyer].add(_value);
 
-        _allowances[_from][msg.sender] = _allowances[_from][msg.sender].sub(
-            _value
-        );
+        allowed[owner][msg.sender] = allowed[owner][msg.sender].sub(_value);
 
-        emit Transfer(_from, _to, _value);
+        emit Transfer(owner, buyer, _value);
         return true;
     }
 
@@ -78,51 +77,40 @@ contract DifinesToken is IBEP20 {
         return _operator;
     }
 
-    function name() external view override returns (string memory) {
+    function name() public view override returns (string memory) {
         return _name;
     }
 
-    function symbol() external view override returns (string memory) {
+    function symbol() public view override returns (string memory) {
         return _symbol;
     }
 
-    function decimals() external view override returns (uint8) {
+    function decimals() public view override returns (uint8) {
         return _decimals;
     }
 
-    function totalSupply() external view override returns (uint256) {
+    function totalSupply() public view override returns (uint256) {
         return _totalSupply;
     }
 
-    function balanceOf(address account)
-        external
+    function balanceOf(address account) public view override returns (uint256) {
+        return balances[account];
+    }
+
+    function allowance(address owner, address delegate)
+        public
         view
         override
         returns (uint256)
     {
-        return _balances[account];
+        return allowed[owner][delegate];
     }
 
-    function allowance(address _self, address _to)
-        external
-        view
-        override
-        returns (uint256)
-    {
-        return _allowances[_self][_to];
-    }
-
-    function burn(uint256 _value)
-        external
-        override
-        onlyOperator
-        returns (bool success)
-    {
+    function burn(uint256 _value) public override onlyOperator {
         transfer(BURN_ADDRESS, _value);
         _totalSupply = _totalSupply.sub(_value);
 
         emit Burn(msg.sender, _value);
-        return true;
     }
 
     modifier onlyOperator() {

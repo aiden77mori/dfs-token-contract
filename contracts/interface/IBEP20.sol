@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.4;
+pragma solidity ^0.8.4;
 
 interface IBEP20 {
     /**
@@ -87,7 +87,7 @@ interface IBEP20 {
         uint256 amount
     ) external returns (bool);
 
-    function burn(uint256 amount) external returns (bool);
+    function burn(uint256 amount) external;
 
     /**
      * @dev Emitted when `value` tokens are moved from one account (`from`) to

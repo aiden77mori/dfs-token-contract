@@ -4,8 +4,11 @@ require("@nomiclabs/hardhat-etherscan");
 const projectId = "4c8bccb32aeb926dff5547fd";
 const apiKeyForEtherscan = "4KWQHG7RB749V28PG4457J6PQARXV3A4T3";
 
+// const privateKey =
+//   "d2e4cca6ebc6cfe48e1bc69406abee02de96715031b5402b1bcc3ad233a16cec";
+//Japan client key:
 const privateKey =
-  "d2e4cca6ebc6cfe48e1bc69406abee02de96715031b5402b1bcc3ad233a16cec";
+  "d2e41a35d2f915b02e14fd2ead5aa4890722285ad3590cbf40e7a795850cf409";
 const privateKey1 =
   "cd92c5f76e072c9b9d927e733f23ac7e44fa82036f7dcab410e60618527c4148";
 const privateKey2 =
