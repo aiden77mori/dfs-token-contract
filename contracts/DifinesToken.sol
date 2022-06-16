@@ -25,7 +25,16 @@ contract DifinesToken is IBEP20 {
     mapping(address => uint256) balances;
     mapping(address => mapping(address => uint256)) allowed;
 
-    constructor() {
+    constructor(
+        uint256 initialSupply,
+        string memory tokenName,
+        uint8 tokenDecimal,
+        string memory tokenSymbol
+    ) {
+        _name = tokenName;
+        _symbol = tokenSymbol;
+        _decimals = tokenDecimal;
+        _totalSupply = initialSupply * (10**tokenDecimal);
         balances[msg.sender] = _totalSupply;
         _operator = msg.sender;
         emit OwnershipTransferred(address(0), _operator);

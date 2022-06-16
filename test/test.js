@@ -17,13 +17,22 @@ beforeEach(async function () {
 describe("Deployment", function () {
   it("Deployment should assign the total supply of tokens to the owner", async function () {
     const MyToken = await ethers.getContractFactory("DifinesToken");
-    mytoken = await MyToken.deploy();
+    mytoken = await MyToken.deploy(1000, "Build Your Dream", 18, "BYD");
   });
 
   it("Should set the right owner", async function () {
     console.log(owner.address);
     console.log(await mytoken.getOwner());
     expect(await mytoken.getOwner()).to.equal(owner.address);
+  });
+
+  it("Should disploy token info", async function () {
+    let tokenName = await mytoken.name();
+    let tokenSymbol = await mytoken.symbol();
+    let tokenDecimal = await mytoken.decimals();
+    console.log("Token Name ", tokenName);
+    console.log("Token Symbol ", tokenSymbol);
+    console.log("Token Decimals ", tokenDecimal);
   });
 
   it("Check total supply and owner's balance when it is minted at first", async function () {
