@@ -6,10 +6,10 @@ import "./libs/SafeMath.sol";
 
 contract DifinesToken is IBEP20 {
     using SafeMath for uint256;
-    string _name = "DIFINES";
-    string _symbol = "DFS";
-    uint8 _decimals = 18;
-    uint256 _totalSupply = 10000000000 * 1e18;
+    string _name;
+    string _symbol;
+    uint8 _decimals;
+    uint256 _totalSupply;
 
     address _operator;
     address public constant BURN_ADDRESS =
