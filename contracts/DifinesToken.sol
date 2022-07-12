@@ -65,36 +65,16 @@ contract DifinesToken is IBEP20 {
         return true;
     }
 
-    // function transferFrom(
-    //     address owner,
-    //     address buyer,
-    //     uint256 _value
-    // ) public override returns (bool success) {
-    //     require(_value <= balances[owner]);
-    //     require(_value <= allowed[owner][msg.sender]);
-
-    //     balances[owner] = balances[owner].sub(_value);
-    //     balances[buyer] = balances[buyer].add(_value);
-
-    //     allowed[owner][msg.sender] = allowed[owner][msg.sender].sub(_value);
-
-    //     emit Transfer(owner, buyer, _value);
-    //     return true;
-    // }
-
     function transferFrom(
         address owner,
         address buyer,
         uint256 _value
     ) public override returns (bool success) {
         require(_value <= balances[owner]);
-        require(_value <= allowed[msg.sender][buyer]);
-
+        require(_value <= allowed[owner][msg.sender]);
         balances[owner] = balances[owner].sub(_value);
         balances[buyer] = balances[buyer].add(_value);
-
-        allowed[msg.sender][buyer] = allowed[msg.sender][buyer].sub(_value);
-
+        allowed[owner][msg.sender] = allowed[owner][msg.sender].sub(_value);
         emit Transfer(owner, buyer, _value);
         return true;
     }
