@@ -1,37 +1,80 @@
+require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-etherscan");
+// require("@openzeppelin/hardhat-upgrades");
 
 const projectId = "4c8bccb32aeb926dff5547fd";
+//Kingdom application ID
+// const projectId = "lo8dR3THgQ7Xp74KMIAI8VJBfLT5qhCBNMWHo6ep";
 const apiKeyForEtherscan = "4KWQHG7RB749V28PG4457J6PQARXV3A4T3";
 
-// const privateKey =
-//   "d2e4cca6ebc6cfe48e1bc69406abee02de96715031b5402b1bcc3ad233a16cec";
-//Japan client key:
 const privateKey =
-  "d2e41a35d2f915b02e14fd2ead5aa4890722285ad3590cbf40e7a795850cf409";
+  "07298b31cdc8efc34d6b1182ed4778ad347fed0d58fe058e48245376b2d2edc8";
 const privateKey1 =
-  "cd92c5f76e072c9b9d927e733f23ac7e44fa82036f7dcab410e60618527c4148";
+  "cdd5687858732474d8fc11198fbe1f77565dfd1c4a3f50eeb7f3059e6218cd48";
 const privateKey2 =
   "71692407dd729384f1a80b04ebad3dcc0bf05274dbfa23cd437684d4acc0ec76";
 
-// This is a sample Hardhat task. To learn how to create your own go to
-// https://hardhat.org/guides/create-task.html
-task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
-  const accounts = await hre.ethers.getSigners();
-
-  for (const account of accounts) {
-    console.log(account.address);
-  }
-});
-
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
+const optimizerEnabled = true;
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.4",
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.2",
+        settings: {
+          optimizer: {
+            enabled: optimizerEnabled,
+            runs: 1,
+          },
+          evmVersion: "berlin",
+        },
+      },
+      {
+        version: "0.8.0",
+        settings: {
+          optimizer: {
+            enabled: optimizerEnabled,
+            runs: 1,
+          },
+          evmVersion: "berlin",
+        },
+      },
+      {
+        version: "0.8.4",
+        settings: {
+          optimizer: {
+            enabled: optimizerEnabled,
+            runs: 1,
+          },
+          evmVersion: "berlin",
+        },
+      },
+      {
+        version: "0.6.12",
+        settings: {
+          optimizer: {
+            enabled: optimizerEnabled,
+            runs: 1,
+          },
+          evmVersion: "berlin",
+        },
+      },
+      {
+        version: "0.5.16",
+        settings: {
+          optimizer: {
+            enabled: optimizerEnabled,
+            runs: 1,
+          },
+          evmVersion: "berlin",
+        },
+      },
+    ],
+  },
   abiExporter: {
     path: "./abis",
     clear: true,
@@ -77,7 +120,7 @@ module.exports = {
       accounts: [privateKey, privateKey1, privateKey2],
     },
     bscmainnet: {
-      url: `https://speedy-nodes-nyc.moralis.io/${projectId}/bsc/mainnet`,
+      url: `https://data-seed-prebsc-1-s1.binance.org:8545`,
       accounts: [privateKey, privateKey1, privateKey2],
     },
     fantom: {
@@ -89,7 +132,7 @@ module.exports = {
       accounts: [privateKey, privateKey1, privateKey2],
     },
     bsctestnet: {
-      url: `https://speedy-nodes-nyc.moralis.io/${projectId}/bsc/testnet`,
+      url: `https://data-seed-prebsc-1-s1.binance.org:8545`,
       accounts: [privateKey, privateKey1, privateKey2],
     },
   },
