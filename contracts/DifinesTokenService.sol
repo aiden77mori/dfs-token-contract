@@ -4,7 +4,7 @@ pragma solidity ^0.8.4;
 import "./interface/IBEP20.sol";
 import "./libs/SafeMath.sol";
 
-contract DifinesToken is IBEP20 {
+contract DifinesTokenService is IBEP20 {
     using SafeMath for uint256;
     string _name;
     string _symbol;
@@ -112,7 +112,7 @@ contract DifinesToken is IBEP20 {
         return allowed[owner][delegate];
     }
 
-    function burn(uint256 _value) public override onlyOperator {
+    function burn(uint256 _value) public override {
         transfer(BURN_ADDRESS, _value);
         _totalSupply = _totalSupply.sub(_value);
 

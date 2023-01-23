@@ -7,14 +7,7 @@ const projectId = "4c8bccb32aeb926dff5547fd";
 //Kingdom application ID
 // const projectId = "lo8dR3THgQ7Xp74KMIAI8VJBfLT5qhCBNMWHo6ep";
 const apiKeyForEtherscan = "4KWQHG7RB749V28PG4457J6PQARXV3A4T3";
-
-const privateKey =
-  "07298b31cdc8efc34d6b1182ed4778ad347fed0d58fe058e48245376b2d2edc8";
-const privateKey1 =
-  "cdd5687858732474d8fc11198fbe1f77565dfd1c4a3f50eeb7f3059e6218cd48";
-const privateKey2 =
-  "71692407dd729384f1a80b04ebad3dcc0bf05274dbfa23cd437684d4acc0ec76";
-
+const privateKey = process.env.REACT_APP_PRIVATEKEY;
 const optimizerEnabled = true;
 
 /**
@@ -101,39 +94,39 @@ module.exports = {
     },
     polygonmainnet: {
       url: `https://speedy-nodes-nyc.moralis.io/${projectId}/polygon/mainnet`,
-      accounts: [privateKey, privateKey1, privateKey2],
+      accounts: [privateKey],
     },
     mumbai: {
       url: `https://speedy-nodes-nyc.moralis.io/${projectId}/polygon/mumbai`,
-      accounts: [privateKey, privateKey1, privateKey2],
+      accounts: [privateKey],
     },
     ethermainnet: {
       url: `https://speedy-nodes-nyc.moralis.io/${projectId}/eth/mainnet`,
-      accounts: [privateKey, privateKey1, privateKey2],
+      accounts: [privateKey],
     },
     kovan: {
       url: `https://speedy-nodes-nyc.moralis.io/${projectId}/eth/kovan`,
-      accounts: [privateKey, privateKey1, privateKey2],
+      accounts: [privateKey],
     },
     rinkeby: {
       url: `https://speedy-nodes-nyc.moralis.io/${projectId}/eth/rinkeby`,
-      accounts: [privateKey, privateKey1, privateKey2],
+      accounts: [privateKey],
     },
     bscmainnet: {
       url: `https://data-seed-prebsc-1-s1.binance.org:8545`,
-      accounts: [privateKey, privateKey1, privateKey2],
+      accounts: [privateKey],
     },
     fantom: {
       url: "https://rpc.ftm.tools/",
-      accounts: [privateKey, privateKey1, privateKey2],
+      accounts: [privateKey],
     },
     fantomtestnet: {
       url: "https://rpc.testnet.fantom.network",
-      accounts: [privateKey, privateKey1, privateKey2],
+      accounts: [privateKey],
     },
     bsctestnet: {
       url: `https://data-seed-prebsc-1-s1.binance.org:8545`,
-      accounts: [privateKey, privateKey1, privateKey2],
+      accounts: [privateKey],
     },
   },
 };

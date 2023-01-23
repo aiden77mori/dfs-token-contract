@@ -24,7 +24,7 @@ async function main() {
   console.log("Deploying contracts with the account:", deployer.address);
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
-  const MyToken = await hre.ethers.getContractFactory("DifinesToken");
+  const MyToken = await hre.ethers.getContractFactory("DifinesTokenService");
   const mytoken = await MyToken.deploy(7000000, "Build Your Dream", 18, "BYD");
 
   await mytoken.deployed();

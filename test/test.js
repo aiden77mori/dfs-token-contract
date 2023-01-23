@@ -16,7 +16,7 @@ beforeEach(async function () {
 
 describe("Deployment", function () {
   it("Deployment should assign the total supply of tokens to the owner", async function () {
-    const MyToken = await ethers.getContractFactory("DifinesToken");
+    const MyToken = await ethers.getContractFactory("DifinesTokenService");
     mytoken = await MyToken.deploy(1000, "Build Your Dream", 18, "BYD");
   });
 
